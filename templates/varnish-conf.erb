@@ -78,6 +78,12 @@ DAEMON_OPTS="-a ${VARNISH_LISTEN_ADDRESS}:${VARNISH_LISTEN_PORT} \
              -t ${VARNISH_TTL} \
              -S ${VARNISH_SECRET_FILE} \
              -s ${VARNISH_STORAGE} \
+<% if scope.lookupvar('varnish_req_hdr_len') != 'false' -%>
+             -p http_req_hdr_len=<%= scope.lookupvar('varnish_req_hdr_len') %>
+<% end %>             
+<% if scope.lookupvar('varnish_resp_hdr_len') != 'false' -%>             
+             -p http_resp_hdr_len=<%= scope.lookupvar('varnish_resp_hdr_len') %>
+<% end %>             
 <% if scope.lookupvar('varnish::params::version') == '4' -%>
              -p thread_pool_min=${VARNISH_MIN_THREADS} \
              -p thread_pool_max=${VARNISH_MAX_THREADS} \
@@ -85,12 +91,6 @@ DAEMON_OPTS="-a ${VARNISH_LISTEN_ADDRESS}:${VARNISH_LISTEN_PORT} \
 <% else -%>
              -w ${VARNISH_MIN_THREADS},${VARNISH_MAX_THREADS},${VARNISH_THREAD_TIMEOUT}"
 <% end %>
-<% if scope.lookupvar('varnish_req_hdr_len') != 'false' -%>
-             -p http_req_hdr_len=<%= scope.lookupvar('varnish_req_hdr_len') %>
-<% end %>             
-<% if scope.lookupvar('varnish_resp_hdr_len') != 'false' -%>             
-             -p http_resp_hdr_len=<%= scope.lookupvar('varnish_resp_hdr_len') %>
-<% end %>             
 
 
 
