@@ -65,6 +65,7 @@ VARNISH_STORAGE="<%= scope.lookupvar('storage_type') %>,${VARNISH_STORAGE_SIZE}"
 VARNISH_STORAGE="<%= scope.lookupvar('storage_type') %>,${VARNISH_STORAGE_FILE},${VARNISH_STORAGE_SIZE}"
 <% end %>
 
+
 #
 # # Default TTL used when the backend does not specify one
 VARNISH_TTL=<%= scope.lookupvar('varnish_ttl') %>
@@ -84,5 +85,12 @@ DAEMON_OPTS="-a ${VARNISH_LISTEN_ADDRESS}:${VARNISH_LISTEN_PORT} \
 <% else -%>
              -w ${VARNISH_MIN_THREADS},${VARNISH_MAX_THREADS},${VARNISH_THREAD_TIMEOUT}"
 <% end %>
+<% if scope.lookupvar('varnish_req_hdr_len') != 'false' -%>
+             -p http_req_hdr_len=<%= scope.lookupvar('varnish_req_hdr_len') %>
+<% end %>             
+<% if scope.lookupvar('varnish_resp_hdr_len') != 'false' -%>             
+             -p http_resp_hdr_len=<%= scope.lookupvar('varnish_resp_hdr_len') %>
+<% end %>             
+
 
 

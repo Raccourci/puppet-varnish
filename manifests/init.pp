@@ -66,6 +66,9 @@ class varnish (
   $default_version              = 3,
   $add_repo                     = true,
   $manage_firewall              = false,
+  $varnish_req_hdr_len          = 'false',
+  $varnish_resp_hdr_len         = 'false',
+
 ) {
 
   # read parameters
